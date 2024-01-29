@@ -28,7 +28,7 @@ const SignIn = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-[7rem] ">
-      <h1>MDoc Doctor's Appointment</h1>
+      <h1>MDoc Doctor&apos;s Appointment</h1>
       <form
         className="bg-[#c8d5f5] rounded-md shadow py-[7rem] px-[3rem] mt-7"
         onSubmit={handleSignIn}
