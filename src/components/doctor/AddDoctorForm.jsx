@@ -38,7 +38,7 @@ const AddDoctorForm = () => {
 
   return (
     <>
-      <SideNav />
+      <Sidenav />
       <div className="max-w-md mx-auto mt-8 p-8 bg-white shadow-md rounded-md md:pl-[5rem]">
         <h2 className="text-2xl font-bold mb-4 text-center">Add New Doctor</h2>
         <div className="mb-4">

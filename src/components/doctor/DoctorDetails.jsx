@@ -61,7 +61,7 @@ const DoctorDetails = () => {
 
   return (
     <>
-      <SideNav />
+      <Sidenav />
       <div className="justify-center">
         <h1 className="text-center mb-3 md:pl-[12rem] text-30px font-semi-bold">Doctor Details</h1>
         <div className="flex md:flex-row flex-col md:pr-[5rem] md:pl-[18rem] md:gap-16 items-center ">

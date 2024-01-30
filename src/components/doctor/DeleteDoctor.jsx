@@ -17,7 +17,7 @@ const DeleteDoctor = () => {
 
   return (
     <>
-      <SideNav />
+      <Sidenav />
       <div className="text-center">
         <h2 className="m-7 font-bold text-25px font-semi-bold md:mb-7 text-center md:pl-[9rem]">Delete Doctor</h2>
 
