@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const bearerToken = localStorage.getItem('bearerToken');
+const headers = { Authorization: bearerToken };
+
 export const createDoctor = createAsyncThunk(
   'doctor/createDoctor',
   async (doctorData) => {
@@ -8,6 +11,9 @@ export const createDoctor = createAsyncThunk(
       const response = await axios.post(
         'http://localhost:3000/doctors',
         doctorData,
+        {
+          headers,
+        },
       );
       return response.data;
     } catch (error) {
@@ -20,8 +26,6 @@ export const fetchDoctors = createAsyncThunk(
   'doctor/fetchDoctors',
   async () => {
     try {
-      const bearerToken = localStorage.getItem('bearerToken');
-      const headers = { Authorization: bearerToken };
       const response = await axios.get('http://127.0.0.1:3000/doctors/', {
         headers,
       });
@@ -53,7 +57,9 @@ export const deleteDoctor = createAsyncThunk(
   'doctor/deleteDoctor',
   async (doctorId) => {
     try {
-      await axios.delete(`http://localhost:3000/doctors/${doctorId}`);
+      await axios.delete(`http://localhost:3000/doctors/${doctorId}`, {
+        headers,
+      });
       return doctorId;
     } catch (error) {
       throw error.response.data;
@@ -77,7 +83,7 @@ const doctorSlice = createSlice({
       })
       .addCase(fetchDoctorById.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.doctors = [action.payload];
+        state.doctors.push(action.payload);
       })
       .addCase(deleteDoctor.fulfilled, (state, action) => {
         state.status = 'succeeded';
