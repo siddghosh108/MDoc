@@ -6,7 +6,7 @@ import Sidenav from '../Navbar/Sidenav';
 
 const DoctorList = () => {
   const dispatch = useDispatch();
-  const doctors = useSelector((state) => state.doctor.doctors);
+  const { doctors } = useSelector((state) => state.doctor);
   const status = useSelector((state) => state.doctor.status);
   const error = useSelector((state) => state.doctor.error);
 
@@ -14,30 +14,45 @@ const DoctorList = () => {
   const itemsPerPageSmallScreen = 1;
   const itemsPerPageMediumScreen = 3;
 
+  // Determine the number of items to show based on screen width
   const getItemsPerPage = () => (window.innerWidth >= 768
-    ? itemsPerPageMediumScreen : itemsPerPageSmallScreen);
+    ? itemsPerPageMediumScreen
+    : itemsPerPageSmallScreen);
 
+  // Move to the previous page
   const handlePrev = () => {
     if (startIndex > 0) {
       setStartIndex(startIndex - getItemsPerPage());
     }
   };
 
+  // Move to the next page
   const handleNext = () => {
-    if (startIndex + getItemsPerPage() < doctors.length) {
-      setStartIndex(startIndex + getItemsPerPage());
+    const newStartIndex = startIndex + getItemsPerPage();
+    if (newStartIndex < doctors.length) {
+      setStartIndex(newStartIndex);
     }
   };
 
+  // Fetch doctors when the component mounts
   useEffect(() => {
     dispatch(fetchDoctors());
   }, [dispatch]);
 
-  const paginatedDoctors = doctors.slice(startIndex, startIndex + getItemsPerPage());
+  // Slice the array to display paginated doctors
+  const paginatedDoctors = doctors.slice(
+    startIndex,
+    startIndex + getItemsPerPage(),
+  );
 
+  // Reset startIndex on window resize to prevent issues with pagination
   window.addEventListener('resize', () => {
-    setStartIndex(0); // Reset startIndex on window resize to prevent issues with pagination
+    setStartIndex(0);
   });
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -45,16 +60,19 @@ const DoctorList = () => {
       <div className="flex flex-col justify-center items-center md:pl-[15rem] md:pr-[3rem] pr-3">
         <h1 className="text-[#1F1717] md:pt-5">Doctors List</h1>
         <span className="text-gray-400">Choose a doctor</span>
-        {status === 'loading' && <p>Loading...</p>}
+
+        {/* Display error message if fetch fails */}
         {status === 'failed' && (
-          <p>
+          <p className="text-red-500">
             Error:
             {error}
           </p>
         )}
-        {(status === 'succeeded' && doctors.length > 0) ? (
+
+        {status === 'succeeded' && doctors.length > 0 ? (
           <ul className="gap-[2rem] md:flex md:gap-[5rem] md:mt-10">
             <div className="flex md:flex-row gap-11">
+              {/* Pagination: Previous Button */}
               <div className="flex align-items-center">
                 <button
                   type="button"
@@ -65,34 +83,41 @@ const DoctorList = () => {
                   &lt;
                 </button>
               </div>
-              {paginatedDoctors.map((doctor) => (
-                <li
-                  key={doctor.id}
-                  className={`my-[2rem] md:my-0 md:transition-transform md:transform md:hover:scale-110 md:duration-500 ${
-                    window.innerWidth >= 768 ? 'md:w-1/3' : 'w-full'
-                  }`}
-                >
-                  <Link to={`/doctors/${doctor.id}`} className="no-underline">
-                    <div className="flex items-center justify-center">
-                      <img
-                        src={doctor.image}
-                        alt={doctor.name}
-                        className="rounded-full object-cover w-72 h-72 max-[967px]:w-62"
-                      />
-                    </div>
-                    <div className="gap-0 flex flex-col justify-center items-center md:gap-1 mt-7">
-                      <div className="text-[#1F1717]">
-                        <h2 className="text-[30px] text-center">
-                          {doctor.name}
-                        </h2>
-                      </div>
-                      <div className="text-[20px] text-gray-700 font-semi-bold md:text-[18px] md:leading-[30px] text-center">
-                        {doctor.specialization}
-                      </div>
-                    </div>
-                  </Link>
-                </li>
+
+              {paginatedDoctors.map((page) => (
+                <React.Fragment key={page}>
+                  {page.map((doctor) => (
+                    <li
+                      key={doctor.id}
+                      className={`my-[2rem] md:my-0 md:transition-transform md:transform md:hover:scale-110 md:duration-500 ${
+                        window.innerWidth >= 768 ? 'md:w-1/3' : 'w-full'
+                      }`}
+                    >
+                      <Link to={`/doctors/${doctor.id}`} className="no-underline">
+                        <div className="flex items-center justify-center">
+                          <img
+                            src={doctor.image}
+                            alt={doctor.name}
+                            className="rounded-full object-cover w-72 h-72 max-[967px]:w-62"
+                          />
+                        </div>
+                        <div className="gap-0 flex flex-col justify-center items-center md:gap-1 mt-7">
+                          <div className="text-[#1F1717]">
+                            <h2 className="text-[30px] text-center">
+                              {doctor.name}
+                            </h2>
+                          </div>
+                          <div className="text-[20px] text-gray-700 font-semi-bold md:text-[18px] md:leading-[30px] text-center">
+                            {doctor.specialization}
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </React.Fragment>
               ))}
+
+              {/* Pagination: Next Button */}
               <div className="d-flex align-items-center">
                 <button
                   type="button"
@@ -106,7 +131,9 @@ const DoctorList = () => {
             </div>
           </ul>
         ) : (
-          (status === 'succeeded' && doctors.length === 0) && (
+          // Display message if no doctors available
+          status === 'succeeded'
+          && doctors.length === 0 && (
             <p className="text-xl mt-5 text-slate-500">No Doctor Available</p>
           )
         )}

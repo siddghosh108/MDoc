@@ -5,7 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import Doctors from './components/Doctors';
+import DoctorList from './components/doctor/DoctorList';
+// import Doctors from './components/Doctors';
 // import Doctors from "./components/Doctors/Doctors";
 
 const App = () => (
@@ -13,9 +14,9 @@ const App = () => (
     <Routes>
       <Route path="/" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
-      <Route path="/doctors" element={<Doctors />} />
+      {/* <Route path="/doctors" element={<Doctors />} /> */}
 
-      {/* <Route path="/doctors" element={<DoctorList />} /> */}
+      <Route path="/doctors" element={<DoctorList />} />
       {/* <Route path="/add-doctor" element={<AddDoctorForm />} /> */}
       {/* <Route path="/doctors/:doctorId" element={<DoctorDetails />} /> */}
       {/* <Route path="New-reservation" element={<NewReservation />} /> */}

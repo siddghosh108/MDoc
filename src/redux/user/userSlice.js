@@ -3,10 +3,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
-  // console.log(userData)
   try {
-    const response = await axios.post('http://localhost:3000/auth/signup', userData);
+    const response = await axios.post(
+      'http://localhost:3000/auth/signup',
+      userData,
+    );
     toast.success('User created successfully');
+
+    const bearer = response.headers.authorization;
+    localStorage.setItem('bearerToken', bearer);
+
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -14,7 +20,10 @@ export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
 });
 export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
   try {
-    const response = await axios.post('http://localhost:3000/auth/login', userData);
+    const response = await axios.post(
+      'http://localhost:3000/auth/signin',
+      userData,
+    );
     return response.data.status.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -33,6 +42,7 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.bearerToken = null;
     },
   },
   extraReducers: (builder) => {
@@ -40,7 +50,6 @@ const userSlice = createSlice({
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload;
-
         const username = `${action.payload.data.first_name} ${action.payload.data.last_name}`;
         localStorage.setItem('username', username);
         localStorage.setItem('jwt_token', action.payload.data.jti);
