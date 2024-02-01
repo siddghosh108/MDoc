@@ -21,7 +21,7 @@ export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
 export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/signin',
+      'http://localhost:3000/auth/login',
       userData,
     );
     return response.data.status.data;
