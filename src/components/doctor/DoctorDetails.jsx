@@ -22,11 +22,7 @@ const DoctorDetails = () => {
   }, [dispatch, doctorId]);
 
   if (status === 'loading') {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
   if (status === 'failed') {
@@ -34,12 +30,9 @@ const DoctorDetails = () => {
       <div>
         <div>
           Error:
-          {' '}
           {error}
         </div>
-        <div>
-          Please try again later or contact support.
-        </div>
+        <div>Please try again later or contact support.</div>
       </div>
     );
   }
@@ -47,9 +40,7 @@ const DoctorDetails = () => {
   if (!doctors.length) {
     return (
       <div>
-        <div>
-          Doctor not found
-        </div>
+        <div>Doctor not found</div>
         <div>
           <Link to="/doctors">Back to Doctors</Link>
         </div>
@@ -57,16 +48,35 @@ const DoctorDetails = () => {
     );
   }
 
-  const selectedDoctor = doctors[0];
+  // Use find method to get the doctor with the specific ID
+  const selectedDoctor = doctors.find(
+    (doctor) => doctor.id === parseInt(doctorId, 10),
+  );
+  if (!selectedDoctor) {
+    return (
+      <div>
+        <div>Doctor not found</div>
+        <div>
+          <Link to="/doctors">Back to Doctors</Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <Sidenav />
       <div className="justify-center">
-        <h1 className="text-center mb-3 md:pl-[12rem] text-30px font-semi-bold">Doctor Details</h1>
+        <h1 className="text-center mb-3 md:pl-[12rem] text-30px font-semi-bold">
+          Doctor Details
+        </h1>
         <div className="flex md:flex-row flex-col md:pr-[5rem] md:pl-[18rem] md:gap-16 items-center ">
           <div>
-            <img src={selectedDoctor.image} alt={selectedDoctor.name} className="rounded-lg shadow-md object-cover w-72 h-72 md:w-96 md:h-96" />
+            <img
+              src={selectedDoctor.image}
+              alt={selectedDoctor.name}
+              className="rounded-lg shadow-md object-cover w-72 h-72 md:w-96 md:h-96"
+            />
           </div>
           <div className="max-[768px]:w-72 ">
             <div className="flex flex-col gap-2 md:gap-3.5 w-full mt-2 md:mt-5">
@@ -81,7 +91,9 @@ const DoctorDetails = () => {
               <p className="text-[16px] md:text-[18px] w-44 font-[400] bg-gray-300 px-[.5rem]  md:px-[1rem] md:py-1 md:w-52">
                 Fee:
                 {' '}
-                <span className="ml-[.5rem] md:ml-[4rem]">{selectedDoctor.fee}</span>
+                <span className="ml-[.5rem] md:ml-[4rem]">
+                  {selectedDoctor.fee}
+                </span>
               </p>
               <p className="text-[16px] md:text-[20px] font-[400]">
                 <strong>Bio:</strong>
