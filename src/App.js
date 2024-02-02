@@ -9,8 +9,6 @@ import DoctorList from './components/doctor/DoctorList';
 import DeleteDoctor from './components/doctor/DeleteDoctor';
 import DoctorDetails from './components/doctor/DoctorDetails';
 import AddDoctorForm from './components/doctor/AddDoctorForm';
-// import Doctors from './components/Doctors';
-// import Doctors from "./components/Doctors/Doctors";
 
 const App = () => (
   <Router>
