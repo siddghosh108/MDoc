@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReservations } from '../../redux/reservation/thunk';
-import SideNav from '../navbar/SideNav';
+import Sidenav from '../Navbar/Sidenav';
 
 const MyReservations = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const MyReservations = () => {
 
   return (
     <>
-      <SideNav />
+      <Sidenav />
       <div className="flex flex-col items-center pt-[1rem] md:pt-[5rem] md:pl-[12rem] px-10">
         <h2 className="text-[#1a1a1a]">My Reservations</h2>
         <table className="md:w-[80%] border-collapse mt-7 ">

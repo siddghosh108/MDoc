@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDoctors, deleteDoctor } from '../../redux/doctor/doctorSlice';
 import Sidenav from '../Navbar/Sidenav';
+
 const DeleteDoctor = () => {
   const dispatch = useDispatch();
   const doctors = useSelector((state) => state.doctor.doctors);
@@ -11,7 +12,7 @@ const DeleteDoctor = () => {
     // Fetch doctors on component mount
     dispatch(fetchDoctors());
   }, [dispatch]);
-   // update the handle delete function to dispatch the actions asynchoronously
+  // update the handle delete function to dispatch the actions asynchoronously
   const handleDelete = (id) => {
     dispatch(deleteDoctor(id)).then(() => dispatch(fetchDoctors()));
   };

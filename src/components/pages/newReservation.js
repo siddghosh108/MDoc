@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import { createReservation } from '../../redux/reservation/thunk';
 import { fetchDoctors } from '../../redux/doctor/doctorSlice';
 import { selectStatus } from '../../redux/user/userSlice';
-import SideNav from '../navbar/SideNav';
+import Sidenav from '../Navbar/Sidenav';
 
 const NewReservation = () => {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const NewReservation = () => {
 
   return (
     <>
-      <SideNav />
+      <Sidenav />
       <div className="bg-lime-400 px-10  h-screen pt-[1rem]  md:pl-[14rem] md:pt-[8rem]">
 
         {/* Scheduling Information */}
