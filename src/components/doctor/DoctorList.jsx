@@ -8,15 +8,13 @@ import Sidenav from '../Navbar/Sidenav';
 
 const DoctorList = () => {
   const dispatch = useDispatch();
-  const doctorsArray = useSelector((state) => state.doctor.doctors);
+  const doctors = useSelector((state) => state.doctor.doctors);
   const status = useSelector((state) => state.doctor.status);
   const error = useSelector((state) => state.doctor.error);
 
   useEffect(() => {
     dispatch(fetchDoctors());
   }, [dispatch]);
-
-  const doctors = doctorsArray.flat();
 
   if (status === 'loading') {
     return <p>Loading...</p>;

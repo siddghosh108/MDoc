@@ -69,21 +69,21 @@ export const deleteDoctor = createAsyncThunk(
 
 const doctorSlice = createSlice({
   name: 'doctor',
-  initialState: { doctors: [], status: 'idle', error: null },
+  initialState: { doctors: null, status: 'idle', error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createDoctor.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.doctors.push(action.payload);
+        state.doctors = action.payload;
       })
       .addCase(fetchDoctors.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.doctors.push(action.payload);
+        state.doctors = action.payload;
       })
       .addCase(fetchDoctorById.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.doctors.push(action.payload);
+        state.doctors = action.payload;
       })
       .addCase(deleteDoctor.fulfilled, (state, action) => {
         state.status = 'succeeded';

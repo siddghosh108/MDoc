@@ -74,14 +74,17 @@ const DoctorDetails = () => {
           <div>
             <img
               src={selectedDoctor.image}
-              alt={selectedDoctor.name}
+              alt={selectedDoctor.first_name}
               className="rounded-lg shadow-md object-cover w-72 h-72 md:w-96 md:h-96"
             />
           </div>
           <div className="max-[768px]:w-72 ">
             <div className="flex flex-col gap-2 md:gap-3.5 w-full mt-2 md:mt-5">
               <h2 className="text-[20px] md:text-[30px] font-semibold">
-                {selectedDoctor.name}
+                {selectedDoctor.first_name}
+              </h2>
+              <h2 className="text-[20px] md:text-[30px] font-semibold">
+                {selectedDoctor.last_name}
               </h2>
               <p className="text-[16px] md:text-[20px] font-[400]">
                 <strong>Specialization:</strong>

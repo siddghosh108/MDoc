@@ -6,7 +6,8 @@ import Sidenav from '../Navbar/Sidenav';
 
 const AddDoctorForm = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [specialization, setSpecialization] = useState('');
   const [bio, setBio] = useState('');
   const [image, setImage] = useState('');
@@ -15,9 +16,10 @@ const AddDoctorForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name && specialization && bio && image && fee) {
+    if (firstname && lastname && specialization && bio && image && fee) {
       await dispatch(createDoctor({
-        name,
+        first_name: firstname,
+        last_name: lastname,
         specialization,
         bio,
         image,
@@ -29,7 +31,8 @@ const AddDoctorForm = () => {
       toast.error('Please fill all fields before you submit');
     }
 
-    setName('');
+    setFirstName('');
+    setLastName('');
     setSpecialization('');
     setBio('');
     setFee('');
@@ -46,10 +49,21 @@ const AddDoctorForm = () => {
             <div className="mb-4">
               <input
                 type="text"
-                name="name"
-                placeholder="Full name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="firstname"
+                placeholder="First Name"
+                value={firstname}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Last Name"
+                value={lastname}
+                onChange={(e) => setLastName(e.target.value)}
                 required
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               />
