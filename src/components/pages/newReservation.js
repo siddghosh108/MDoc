@@ -15,9 +15,9 @@ const NewReservation = () => {
   const userStatus = useSelector(selectStatus);
 
   const userId = JSON.parse(localStorage.getItem('user_id'));
-
+  console.log('reservation user:', userId);
   const [date, setDate] = useState('');
-  const [city, setCity] = useState('');
+  // const [city, setCity] = useState('');
   const [doctorId, setDoctorId] = useState(selectedDoctor ? selectedDoctor.id : '');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,13 +36,13 @@ const NewReservation = () => {
       const reservationData = {
         user_id: userId,
         doctor_id: doctorId,
-        city,
+        // city,
         date,
       };
 
       await dispatch(createReservation({ data: reservationData }));
       setDoctorId('');
-      setCity('');
+      // setCity('');
       setDate('');
       toast.success('Doctor added successfully');
     } catch (err) {
@@ -53,9 +53,10 @@ const NewReservation = () => {
   };
 
   useEffect(() => {
-    if (userStatus === 'idle' && userId) {
-      dispatch(fetchDoctors());
-    }
+    // if (userStatus === 'idle' && userId) {
+    dispatch(fetchDoctors());
+    console.log('Doctors:', doctors);
+    // }
   }, [dispatch, userStatus, userId]);
 
   return (
@@ -91,7 +92,7 @@ const NewReservation = () => {
             </div>
 
             {/* City Input */}
-            <div className="flex flex-col w-full  md:ml-9">
+            {/* <div className="flex flex-col w-full  md:ml-9">
               <p className="text-lg font-medium text-white">
                 City
               </p>
@@ -103,7 +104,7 @@ const NewReservation = () => {
                 className="p-2 border rounded reserve-input"
                 required
               />
-            </div>
+            </div> */}
 
             {/* Doctor Selection */}
             <div className="flex flex-col w-full  md:ml-9">
@@ -120,7 +121,7 @@ const NewReservation = () => {
                 <option value="">Select Doctor</option>
                 {doctors.map((doctor) => (
                   <option key={doctor.id} value={doctor.id}>
-                    {doctor.name}
+                    {doctor.first_name}
                   </option>
                 ))}
               </select>

@@ -24,6 +24,9 @@ export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
       'http://localhost:3000/auth/login',
       userData,
     );
+    console.log('User:', response.data.data.patient.id);
+    localStorage.setItem('user_id', response.data.data.patient.id);
+    console.log('Local:', localStorage.getItem('user_id'));
     return response.data.status.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -59,8 +62,10 @@ const userSlice = createSlice({
         state.user = action.payload;
 
         const username = `${action.payload.firstName} ${action.payload.lastName}`;
+        // const userid = action.payload.id;
+
         localStorage.setItem('username', username);
-        localStorage.setItem('jwt_token', action.payload.jwt_token);
+        localStorage.setItem('jwt_token', action.payload.jti);
       })
 
       .addMatcher(
