@@ -13,6 +13,7 @@ const DoctorDetails = () => {
   const { doctorId } = useParams();
   const dispatch = useDispatch();
   const doctors = useSelector(selectDoctors);
+  console.log('Doctors:', doctors);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const DoctorDetails = () => {
     );
   }
 
-  if (!doctors.length) {
+  if (!doctors) {
     return (
       <div>
         <div>Doctor not found</div>
@@ -49,19 +50,6 @@ const DoctorDetails = () => {
   }
 
   // Use find method to get the doctor with the specific ID
-  const selectedDoctor = doctors.find(
-    (doctor) => doctor.id === parseInt(doctorId, 10),
-  );
-  if (!selectedDoctor) {
-    return (
-      <div>
-        <div>Doctor not found</div>
-        <div>
-          <Link to="/doctors">Back to Doctors</Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -73,35 +61,35 @@ const DoctorDetails = () => {
         <div className="flex md:flex-row flex-col md:pr-[5rem] md:pl-[18rem] md:gap-16 items-center ">
           <div>
             <img
-              src={selectedDoctor.image}
-              alt={selectedDoctor.first_name}
+              src={doctors.image}
+              alt={doctors.first_name}
               className="rounded-lg shadow-md object-cover w-72 h-72 md:w-96 md:h-96"
             />
           </div>
           <div className="max-[768px]:w-72 ">
             <div className="flex flex-col gap-2 md:gap-3.5 w-full mt-2 md:mt-5">
               <h2 className="text-[20px] md:text-[30px] font-semibold">
-                {selectedDoctor.first_name}
+                {doctors.first_name}
               </h2>
               <h2 className="text-[20px] md:text-[30px] font-semibold">
-                {selectedDoctor.last_name}
+                {doctors.last_name}
               </h2>
               <p className="text-[16px] md:text-[20px] font-[400]">
                 <strong>Specialization:</strong>
                 {' '}
-                <span>{selectedDoctor.specialization}</span>
+                <span>{doctors.specialization}</span>
               </p>
               <p className="text-[16px] md:text-[18px] w-44 font-[400] bg-gray-300 px-[.5rem]  md:px-[1rem] md:py-1 md:w-52">
                 Fee:
                 {' '}
                 <span className="ml-[.5rem] md:ml-[4rem]">
-                  {selectedDoctor.fee}
+                  {doctors.fee}
                 </span>
               </p>
               <p className="text-[16px] md:text-[20px] font-[400]">
                 <strong>Bio:</strong>
                 {' '}
-                <span>{selectedDoctor.bio}</span>
+                <span>{doctors.bio}</span>
               </p>
               <div>
                 <button
