@@ -9,8 +9,8 @@ import DoctorList from './components/doctor/DoctorList';
 import DeleteDoctor from './components/doctor/DeleteDoctor';
 import DoctorDetails from './components/doctor/DoctorDetails';
 import AddDoctorForm from './components/doctor/AddDoctorForm';
-import NewReservation from './components/pages/newReservation';
-import MyReservations from './components/pages/myReservations';
+import NewReservation from './components/pages/NewReservation';
+import MyReservations from './components/pages/MyReservations';
 
 const App = () => (
   <Router>

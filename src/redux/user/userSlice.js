@@ -24,10 +24,11 @@ export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
       'http://localhost:3000/auth/login',
       userData,
     );
-    console.log('User:', response.data.data.patient.id);
+    const bearer = response.headers.authorization;
+    localStorage.setItem('bearerToken', bearer);
+
     localStorage.setItem('user_id', response.data.data.patient.id);
-    console.log('Local:', localStorage.getItem('user_id'));
-    return response.data.status.data;
+    return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
       throw new Error('Invalid email or password. Please try again.');
@@ -59,13 +60,13 @@ const userSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload;
+        state.user = action.payload.code;
+        console.log(action.payload.data.patient);
 
-        const username = `${action.payload.firstName} ${action.payload.lastName}`;
-        // const userid = action.payload.id;
-
+        const username = `${action.payload.data.patient.first_name} ${action.payload.data.patient.last_name}`;
+        console.log(username);
         localStorage.setItem('username', username);
-        localStorage.setItem('jwt_token', action.payload.jti);
+        localStorage.setItem('jwt_token', action.payload.data.patient.jti);
       })
 
       .addMatcher(

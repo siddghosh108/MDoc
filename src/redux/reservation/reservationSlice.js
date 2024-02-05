@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchReservations, createReservation } from './thunk';
 
 const initialState = {
-  reservations: [],
+  reservations: null,
   isLoading: false,
   error: false,
   errMsg: '',
@@ -20,6 +20,7 @@ const reservationsSlice = createSlice({
       })
       .addCase(fetchReservations.fulfilled, (state, action) => {
         state.isLoading = false;
+        // console.log(action.payload);
         state.reservations = action.payload;
       })
       .addCase(fetchReservations.rejected, (state) => {

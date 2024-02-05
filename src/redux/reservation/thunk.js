@@ -6,29 +6,34 @@ const headers = { Authorization: bearerToken };
 
 const url = 'http://127.0.0.1:3000/';
 
-export const fetchReservations = createAsyncThunk('reservations/fetchReservations', async (userId, thunkAPI) => {
-  try {
-    const response = await axios.get(`${url}/users/${userId}/reservations`);
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
+export const fetchReservations = createAsyncThunk(
+  'reservations/fetchReservations',
+  async () => {
+    try {
+      const response = await axios.get(
+        'http://127.0.0.1:3000/appointments',
+        { headers },
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  },
+);
 
 export const createReservation = createAsyncThunk(
   'reservations/createReservation',
   async ({ data }, thunkAPI) => {
-    window.location.reload();
     try {
       const response = await axios.post(
-        'http://127.0.0.1:3000/appointment',
+        'http://127.0.0.1:3000/appointments',
         data,
         {
           headers,
         },
       );
-      window.location.reload();
       thunkAPI.dispatch(fetchReservations());
+      console.log(response);
       return response.data;
     } catch (error) {
       throw error.response.data;

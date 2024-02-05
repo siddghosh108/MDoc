@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
-  FaTwitter, FaFacebookF, FaPinterestP, FaVimeoV, FaBars, FaTimes,
+  FaTwitter,
+  FaFacebookF,
+  FaPinterestP,
+  FaVimeoV,
+  FaBars,
+  FaTimes,
 } from 'react-icons/fa';
 import { TiSocialGooglePlus } from 'react-icons/ti';
 import './nav.css';
@@ -26,7 +31,9 @@ const SocialMedia = () => (
       <FaPinterestP />
     </div>
     <div>
-      <p className="text-gray-800 font-medium text-[18px] text-center mt-1">&copy;Copyright 2023</p>
+      <p className="text-gray-800 font-medium text-[18px] text-center mt-1">
+        &copy;Copyright 2023
+      </p>
     </div>
   </div>
 );
@@ -48,8 +55,9 @@ const Sidenav = () => {
 
   const handleLogout = () => {
     dispatch(logout);
-    localStorage.removeItem('user_id');
-    navigate('/login');
+    localStorage.removeItem('username');
+    localStorage.removeItem('jwt_token');
+    navigate('/signin');
   };
 
   return (
@@ -60,19 +68,29 @@ const Sidenav = () => {
             <li key={link.id}>
               <NavLink
                 to={link.path}
-                className={({ isActive }) => `text-gray-700 py-2 px-4 no-underline${isActive ? ' my-active-class bg-lime-500 text-white' : ''}`}
+                className={({ isActive }) => `text-gray-700 py-2 px-4 no-underline${
+                  isActive ? ' my-active-class bg-lime-500 text-white' : ''
+                }`}
               >
                 {link.text}
               </NavLink>
             </li>
           ))}
-          <button type="button" className="d:flex md:flex-col md:items-end hover:bg-lime-500 py-2 px-4 text-gray-800 font-bold hover:text-white" onClick={handleLogout}>
+          <button
+            type="button"
+            className="d:flex md:flex-col md:items-end hover:bg-lime-500 py-2 px-4 text-gray-800 font-bold hover:text-white"
+            onClick={handleLogout}
+          >
             LOGOUT
           </button>
         </ul>
         <SocialMedia />
       </div>
-      <button type="button" onClick={handleToggle} className="menu-icon text-[#DADDB1] mb-6">
+      <button
+        type="button"
+        onClick={handleToggle}
+        className="menu-icon text-[#DADDB1] mb-6"
+      >
         {isOpen ? <FaTimes className="close" /> : <FaBars className="open" />}
       </button>
       {isOpen && (
@@ -83,13 +101,19 @@ const Sidenav = () => {
                 <NavLink
                   to={link.path}
                   onClick={handleClick}
-                  className={({ isActive }) => `text-gray-700 py-2 px-4 no-underline${isActive ? ' my-active-class bg-lime-500 text-white' : ''}`}
+                  className={({ isActive }) => `text-gray-700 py-2 px-4 no-underline${
+                    isActive ? ' my-active-class bg-lime-500 text-white' : ''
+                  }`}
                 >
                   {link.text}
                 </NavLink>
               </li>
             ))}
-            <button type="button" className=" py-2 px-4 text-gray-800  font-bold hover:text-white" onClick={handleLogout}>
+            <button
+              type="button"
+              className=" py-2 px-4 text-gray-800  font-bold hover:text-white"
+              onClick={handleLogout}
+            >
               LOGOUT
             </button>
             <SocialMedia />
