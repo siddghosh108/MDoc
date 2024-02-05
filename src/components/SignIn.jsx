@@ -22,8 +22,6 @@ const SignIn = () => {
       // Dispatch the sign-in action
       const response = await dispatch(signInUser({ patient }));
 
-      console.log('res', response.payload); // Log the response to the console
-
       // Check if the response indicates a successful sign-in
       if (response.payload.code === 200) {
         navigate('/doctors'); // Navigate to the doctors page only if sign-in is successful
@@ -32,7 +30,6 @@ const SignIn = () => {
         toast.error('Invalid email or password. Please try again.');
       }
     } catch (error) {
-      console.log('err', error);
       // Handle other errors, such as network issues or unexpected errors
       toast.error('An unexpected error occurred. Please try again later.');
     }

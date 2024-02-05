@@ -13,7 +13,6 @@ const DoctorDetails = () => {
   const { doctorId } = useParams();
   const dispatch = useDispatch();
   const doctors = useSelector(selectDoctors);
-  console.log('Doctors:', doctors);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
   const navigate = useNavigate();

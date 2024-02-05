@@ -61,10 +61,8 @@ const userSlice = createSlice({
       .addCase(signInUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload.code;
-        console.log(action.payload.data.patient);
 
         const username = `${action.payload.data.patient.first_name} ${action.payload.data.patient.last_name}`;
-        console.log(username);
         localStorage.setItem('username', username);
         localStorage.setItem('jwt_token', action.payload.data.patient.jti);
       })

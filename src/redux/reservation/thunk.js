@@ -33,7 +33,6 @@ export const createReservation = createAsyncThunk(
         },
       );
       thunkAPI.dispatch(fetchReservations());
-      console.log(response);
       return response.data;
     } catch (error) {
       throw error.response.data;

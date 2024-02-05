@@ -8,8 +8,6 @@ const MyReservations = () => {
   // const userId = JSON.parse(localStorage.getItem('user_id'));
   const reservations = useSelector((state) => state.reservation.reservations);
 
-  console.log('reserved', reservations);
-
   useEffect(() => {
     dispatch(fetchReservations());
   }, [dispatch]);
