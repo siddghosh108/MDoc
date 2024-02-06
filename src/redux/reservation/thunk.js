@@ -11,7 +11,7 @@ export const fetchReservations = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        'https://mdoc-backend.onrender.com/appointments',
+        `${url}/appointments`,
         { headers },
       );
       return response.data;
@@ -26,7 +26,7 @@ export const createReservation = createAsyncThunk(
   async ({ data }, thunkAPI) => {
     try {
       const response = await axios.post(
-        'https://mdoc-backend.onrender.com/appointments',
+        `${url}/appointments`,
         data,
         {
           headers,

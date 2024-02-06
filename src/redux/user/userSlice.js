@@ -2,10 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const url = 'https://mdoc-backend.onrender.com/';
+
 export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
   try {
     const response = await axios.post(
-      'https://mdoc-backend.onrender.com/auth/signup',
+      `${url}/auth/signup`,
       userData,
     );
     toast.success('User created successfully');
@@ -21,7 +23,7 @@ export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
 export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
   try {
     const response = await axios.post(
-      'https://mdoc-backend.onrender.com/auth/login',
+      `${url}/auth/login`,
       userData,
     );
     const bearer = response.headers.authorization;

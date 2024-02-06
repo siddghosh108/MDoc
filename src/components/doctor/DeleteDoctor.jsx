@@ -58,7 +58,7 @@ const DeleteDoctor = () => {
         <h2 className="m-7 font-bold text-25px font-semi-bold md:mb-7 text-center md:pl-[9rem]">
           Delete Doctor
         </h2>
-        {doctors.map((doctor) => (
+        {doctors && doctors.length && doctors.map((doctor) => (
           <div
             key={doctor.id}
             className="flex flex-col justify-center items-center py-[.8rem] gap-[1rem]  md:flex-row md:gap-[8rem] md:pl-[15rem] md:py-[1.2rem]"

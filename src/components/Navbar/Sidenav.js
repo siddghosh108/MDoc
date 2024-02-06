@@ -57,6 +57,7 @@ const Sidenav = () => {
     dispatch(logout);
     localStorage.removeItem('username');
     localStorage.removeItem('jwt_token');
+    localStorage.removeItem('bearerToken');
     navigate('/signin');
   };
 

@@ -41,7 +41,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[7rem] bg-[url('../public/SignUp.jpg')] h-full w-full object-fit">
+    <div className="flex flex-col justify-center items-center mt-[2rem] h-full w-full object-fit">
       <h1>MDoc Doctor&apos;s Appointment</h1>
       <form
         className="bg-[#c8e5f5] rounded-md shadow py-[7rem] px-[3rem] mt-7"

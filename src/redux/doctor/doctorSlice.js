@@ -4,12 +4,14 @@ import axios from 'axios';
 const bearerToken = localStorage.getItem('bearerToken');
 const headers = { Authorization: bearerToken };
 
+const url = 'https://mdoc-backend.onrender.com/';
+
 export const createDoctor = createAsyncThunk(
   'doctor/createDoctor',
   async (doctorData) => {
     try {
       const response = await axios.post(
-        'https://mdoc-backend.onrender.com/doctors',
+        `${url}/doctors`,
         doctorData,
         {
           headers,
@@ -26,7 +28,7 @@ export const fetchDoctors = createAsyncThunk(
   'doctor/fetchDoctors',
   async () => {
     try {
-      const response = await axios.get('https://mdoc-backend.onrender.com/doctors/', {
+      const response = await axios.get(`${url}/doctors/`, {
         headers,
       });
       return response.data;
@@ -43,7 +45,7 @@ export const fetchDoctorById = createAsyncThunk(
       const bearerToken = localStorage.getItem('bearerToken');
       const headers = { Authorization: bearerToken };
       const response = await axios.get(
-        `https://mdoc-backend.onrender.com/doctors/${doctorId}`,
+        `${url}/doctors/${doctorId}`,
         { headers },
       );
       return response.data;
@@ -57,7 +59,7 @@ export const deleteDoctor = createAsyncThunk(
   'doctor/deleteDoctor',
   async (doctorId) => {
     try {
-      await axios.delete(`https://mdoc-backend.onrender.com/doctors/${doctorId}`, {
+      await axios.delete(`${url}/doctors/${doctorId}`, {
         headers,
       });
       return doctorId;
