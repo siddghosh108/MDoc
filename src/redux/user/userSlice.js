@@ -15,9 +15,6 @@ export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
 
     return response.data;
   } catch (error) {
-    if (error.response && error.response.status != 200) {
-      throw new Error('Invalid signup. Please try again.');
-    }
     throw error.response.data;
   }
 });

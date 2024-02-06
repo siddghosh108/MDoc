@@ -32,7 +32,7 @@ const SignUp = () => {
       setLastName('');
       setEmail('');
       setPassword('');
-      navigate('/');
+      navigate('/doctors');
     } catch (err) {
       toast.error('Sign Up Error:', err);
     }
