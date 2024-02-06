@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/signup',
+      'https://mdoc-backend.onrender.com/auth/signup',
       userData,
     );
     toast.success('User created successfully');
@@ -15,13 +15,16 @@ export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
 
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status != 200) {
+      throw new Error('Invalid signup. Please try again.');
+    }
     throw error.response.data;
   }
 });
 export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/login',
+      'https://mdoc-backend.onrender.com/auth/login',
       userData,
     );
     const bearer = response.headers.authorization;

@@ -4,14 +4,14 @@ import axios from 'axios';
 const bearerToken = localStorage.getItem('bearerToken');
 const headers = { Authorization: bearerToken };
 
-const url = 'http://127.0.0.1:3000/';
+const url = 'https://mdoc-backend.onrender.com/';
 
 export const fetchReservations = createAsyncThunk(
   'reservations/fetchReservations',
   async () => {
     try {
       const response = await axios.get(
-        'http://127.0.0.1:3000/appointments',
+        'https://mdoc-backend.onrender.com/appointments',
         { headers },
       );
       return response.data;
@@ -26,7 +26,7 @@ export const createReservation = createAsyncThunk(
   async ({ data }, thunkAPI) => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:3000/appointments',
+        'https://mdoc-backend.onrender.com/appointments',
         data,
         {
           headers,
