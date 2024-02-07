@@ -15,7 +15,6 @@ const NewReservation = () => {
   const userStatus = useSelector(selectStatus);
 
   const userId = JSON.parse(localStorage.getItem('user_id'));
-  // console.log('reservation user:', userId);
   const [date, setDate] = useState('');
   const [city, setCity] = useState('');
   const [doctorId, setDoctorId] = useState(selectedDoctor ? selectedDoctor.id : '');
@@ -53,9 +52,7 @@ const NewReservation = () => {
   };
 
   useEffect(() => {
-    // if (userStatus === 'idle' && userId) {
     dispatch(fetchDoctors());
-    // }
   }, [dispatch, userStatus, userId]);
 
   return (
@@ -85,7 +82,6 @@ const NewReservation = () => {
                 type="datetime-local"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                // new Date(date).toISOString()
                 className="p-2 border rounded reserve-input"
                 required
               />
