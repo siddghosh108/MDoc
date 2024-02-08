@@ -5,6 +5,7 @@ const bearerToken = localStorage.getItem('bearerToken');
 const headers = { Authorization: bearerToken };
 
 const url = 'https://mdoc-backend.onrender.com/';
+// const url = ' http://127.0.0.1:3000';
 
 export const createDoctor = createAsyncThunk(
   'doctor/createDoctor',

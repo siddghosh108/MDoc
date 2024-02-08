@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const url = 'https://mdoc-backend.onrender.com/';
+// const url = 'http://127.0.0.1:3000';
 
 export const signUpUser = createAsyncThunk('user/signUp', async (userData) => {
   try {
@@ -28,7 +29,6 @@ export const signInUser = createAsyncThunk('user/signIn', async (userData) => {
     );
     const bearer = response.headers.authorization;
     localStorage.setItem('bearerToken', bearer);
-
     localStorage.setItem('user_id', response.data.data.patient.id);
     return response.data;
   } catch (error) {
