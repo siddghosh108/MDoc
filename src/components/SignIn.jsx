@@ -23,7 +23,7 @@ const SignIn = () => {
       const response = await dispatch(signInUser({ patient }));
 
       // Check if the response indicates a successful sign-in
-      
+
       if (response.payload.code === 200) {
         navigate('/doctors'); // Navigate to the doctors page only if sign-in is successful
       } else {
